@@ -1,8 +1,0 @@
-{
-  "name": "sentry-skills",
-  "description": "Sentry-specific agent skills for code review, commits, and more",
-  "version": "1.0.0",
-  "author": {
-    "name": "Sentry"
-  }
-}

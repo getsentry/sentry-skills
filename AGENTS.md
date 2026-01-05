@@ -5,14 +5,14 @@ A collection of agent skills following the [Agent Skills specification](https://
 ## Structure
 
 ```
-skills/<skill-name>/SKILL.md
+plugins/sentry-skills/skills/<skill-name>/SKILL.md
 ```
 
 Each skill is a directory containing a `SKILL.md` file with YAML frontmatter (`name`, `description`) and markdown instructions.
 
 ## Creating a Skill
 
-1. Create `skills/<skill-name>/SKILL.md`
+1. Create `plugins/sentry-skills/skills/<skill-name>/SKILL.md`
 2. Add frontmatter with `name` (kebab-case, 1-64 chars) and `description` (up to 1024 chars with trigger keywords)
 3. Write clear instructions in markdown
 

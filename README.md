@@ -34,24 +34,27 @@ Copy the `skills/` directory to your agent's skills location, or reference the S
 
 | Skill | Description |
 |-------|-------------|
-| [code-review](skills/code-review/SKILL.md) | Sentry code review guidelines and checklist |
-| [commit](skills/commit/SKILL.md) | Sentry commit message conventions |
+| [code-review](plugins/sentry-skills/skills/code-review/SKILL.md) | Sentry code review guidelines and checklist |
+| [commit](plugins/sentry-skills/skills/commit/SKILL.md) | Sentry commit message conventions |
 
 ## Repository Structure
 
 ```
 sentry-skills/
 ├── .claude-plugin/
-│   ├── marketplace.json # Marketplace manifest (for /plugin marketplace add)
-│   └── plugin.json      # Plugin manifest
-├── skills/
-│   ├── code-review/
-│   │   └── SKILL.md     # Code review skill
-│   └── commit/
-│       └── SKILL.md     # Commit message skill
-├── AGENTS.md            # Agent-facing documentation
-├── CLAUDE.md            # Symlink to AGENTS.md
-└── README.md            # This file
+│   └── marketplace.json      # Marketplace manifest
+├── plugins/
+│   └── sentry-skills/
+│       ├── .claude-plugin/
+│       │   └── plugin.json   # Plugin manifest
+│       └── skills/
+│           ├── code-review/
+│           │   └── SKILL.md
+│           └── commit/
+│               └── SKILL.md
+├── AGENTS.md                 # Agent-facing documentation
+├── CLAUDE.md                 # Symlink to AGENTS.md
+└── README.md                 # This file
 ```
 
 ## Creating New Skills
@@ -60,10 +63,10 @@ Skills follow the [Agent Skills specification](https://agentskills.io/specificat
 
 ### Skill Template
 
-Create a new directory under `skills/` with this structure:
+Create a new directory under `plugins/sentry-skills/skills/`:
 
 ```
-skills/my-skill/
+plugins/sentry-skills/skills/my-skill/
 └── SKILL.md
 ```
 
