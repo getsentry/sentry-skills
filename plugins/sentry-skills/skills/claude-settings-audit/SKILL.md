@@ -94,17 +94,62 @@ Build the allow list by combining:
 
 ### Stack-Specific Commands
 
+Only include commands for tools actually detected in the project.
+
+#### Python (if any Python files or config detected)
+
 | If Detected | Add These Commands |
 |-------------|-------------------|
-| **Python** | `python --version`, `python3 --version`, `pip list`, `pip show`, `pip freeze`, `poetry show`, `poetry env info`, `uv pip list` |
-| **Node.js** | `node --version`, `npm list`, `npm view`, `npm outdated`, `yarn list`, `yarn info`, `yarn why`, `pnpm list`, `tsc --version` |
-| **Go** | `go version`, `go list`, `go mod graph`, `go env` |
-| **Rust** | `rustc --version`, `cargo --version`, `cargo tree`, `cargo metadata` |
-| **Ruby** | `ruby --version`, `gem list`, `bundle list`, `bundle show` |
-| **Java** | `java --version`, `mvn --version`, `mvn dependency:tree`, `gradle --version`, `gradle dependencies` |
-| **Docker** | `docker --version`, `docker ps`, `docker images`, `docker-compose ps`, `docker-compose config` |
-| **Terraform** | `terraform --version`, `terraform providers`, `terraform state list` |
-| **Make** | `make --version`, `make -n` |
+| Any Python | `python --version`, `python3 --version` |
+| `poetry.lock` | `poetry show`, `poetry env info` |
+| `uv.lock` | `uv pip list`, `uv tree` |
+| `Pipfile.lock` | `pipenv graph` |
+| `requirements.txt` (no other lock) | `pip list`, `pip show`, `pip freeze` |
+
+#### Node.js (if package.json detected)
+
+| If Detected | Add These Commands |
+|-------------|-------------------|
+| Any Node.js | `node --version` |
+| `pnpm-lock.yaml` | `pnpm list`, `pnpm why` |
+| `yarn.lock` | `yarn list`, `yarn info`, `yarn why` |
+| `package-lock.json` | `npm list`, `npm view`, `npm outdated` |
+| TypeScript (`tsconfig.json`) | `tsc --version` |
+
+#### Other Languages
+
+| If Detected | Add These Commands |
+|-------------|-------------------|
+| `go.mod` | `go version`, `go list`, `go mod graph`, `go env` |
+| `Cargo.toml` | `rustc --version`, `cargo --version`, `cargo tree`, `cargo metadata` |
+| `Gemfile` | `ruby --version`, `bundle list`, `bundle show` |
+| `pom.xml` | `java --version`, `mvn --version`, `mvn dependency:tree` |
+| `build.gradle` | `java --version`, `gradle --version`, `gradle dependencies` |
+
+#### Build Tools
+
+| If Detected | Add These Commands |
+|-------------|-------------------|
+| `Dockerfile` | `docker --version`, `docker ps`, `docker images` |
+| `docker-compose.yml` | `docker-compose ps`, `docker-compose config` |
+| `*.tf` files | `terraform --version`, `terraform providers`, `terraform state list` |
+| `Makefile` | `make --version`, `make -n` |
+
+### Skills (for Sentry Projects)
+
+If this is a Sentry project (or sentry-skills plugin is installed), include:
+
+```json
+[
+  "Skill(sentry-skills:commit)",
+  "Skill(sentry-skills:create-pr)",
+  "Skill(sentry-skills:code-review)",
+  "Skill(sentry-skills:find-bugs)",
+  "Skill(sentry-skills:deslop)",
+  "Skill(sentry-skills:iterate-pr)",
+  "Skill(sentry-skills:claude-settings-audit)"
+]
+```
 
 ### WebFetch Domains
 
@@ -220,9 +265,31 @@ Example output structure:
 If you use Sentry or Linear, add the MCP config to `.mcp.json`...
 ```
 
-## Important Notes
+## Important Rules
 
-- Only suggest READ-ONLY commands - never commands that modify state
+### What to Include
+- Only READ-ONLY commands that cannot modify state
+- Only tools that are actually used by the project (detected via lock files)
+- Standard system commands (ls, cat, find, etc.)
 - The `:*` suffix allows any arguments to the base command
-- Group commands with comments for readability
-- If existing settings found, show what to add vs what's already present
+
+### What to NEVER Include
+- **Absolute paths** - Never include user-specific paths like `/home/user/scripts/foo` or `/Users/name/bin/bar`
+- **Custom scripts** - Never include project scripts that may have side effects (e.g., `./scripts/deploy.sh`)
+- **Alternative package managers** - If the project uses pnpm, do NOT include npm/yarn commands
+- **Commands that modify state** - No install, build, run, write, or delete commands
+
+### Package Manager Rules
+
+Only include the package manager actually used by the project:
+
+| If Detected | Include | Do NOT Include |
+|-------------|---------|----------------|
+| `pnpm-lock.yaml` | pnpm commands | npm, yarn |
+| `yarn.lock` | yarn commands | npm, pnpm |
+| `package-lock.json` | npm commands | yarn, pnpm |
+| `poetry.lock` | poetry commands | pip (unless also has requirements.txt) |
+| `uv.lock` | uv commands | pip, poetry |
+| `Pipfile.lock` | pipenv commands | pip, poetry |
+
+If multiple lock files exist, include only the commands for each detected manager.
