@@ -8,7 +8,7 @@ Agent skills for Sentry employees, following the [Agent Skills](https://agentski
 
 ```bash
 # Add the marketplace
-claude plugin marketplace add getsentry/sentry-skills
+claude plugin marketplace add getsentry/skills
 
 # Install the plugin
 claude plugin install sentry-skills@sentry-skills
@@ -18,7 +18,7 @@ claude plugin install sentry-skills@sentry-skills
 
 ```bash
 # Clone the repository
-git clone git@github.com:getsentry/sentry-skills.git ~/sentry-skills
+git clone git@github.com:getsentry/skills.git ~/sentry-skills
 
 # Install the plugin directly
 claude plugin install ~/sentry-skills
