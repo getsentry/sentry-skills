@@ -13,13 +13,27 @@ Each skill is a directory containing a `SKILL.md` file with YAML frontmatter (`n
 ## Creating a Skill
 
 1. Create `plugins/sentry-skills/skills/<skill-name>/SKILL.md`
-2. Add frontmatter with `name` (kebab-case, 1-64 chars) and `description` (up to 1024 chars with trigger keywords)
+2. Add YAML frontmatter (see below)
 3. Write clear instructions in markdown
+
+### Frontmatter
+
+**Required:**
+- `name` - kebab-case, 1-64 chars
+- `description` - up to 1024 chars, include trigger keywords
+
+**Optional:**
+- `model` - override model (`sonnet`, `opus`, `haiku`)
+- `allowed-tools` - space-delimited list of permitted tools
+- `license` - license name or path
+- `compatibility` - environment requirements (max 500 chars)
 
 ```yaml
 ---
 name: example-skill
 description: What this skill does and when to use it. Include trigger keywords.
+model: sonnet
+allowed-tools: Read Grep Glob Bash
 ---
 
 # Example Skill

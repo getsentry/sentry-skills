@@ -30,11 +30,13 @@ After installation, restart Claude Code. The skills will be automatically invoke
 
 ```bash
 # Update the marketplace index
-/plugin marketplace update
+claude plugin marketplace update
 
 # Update the plugin
-/plugin update sentry-skills@sentry-skills
+claude plugin update sentry-skills@sentry-skills
 ```
+
+Or use `/plugin` to open the interactive plugin manager.
 
 ### Other Agents
 
@@ -113,13 +115,21 @@ Concrete examples showing expected input/output.
 
 ### Optional Fields
 
+| Field | Description |
+|-------|-------------|
+| `license` | License name or path to license file |
+| `compatibility` | Environment requirements (max 500 chars) |
+| `model` | Override model for this skill (e.g., `sonnet`, `opus`, `haiku`) |
+| `allowed-tools` | Space-delimited list of tools the skill can use |
+| `metadata` | Arbitrary key-value pairs for additional properties |
+
 ```yaml
 ---
 name: my-skill
 description: What this skill does
 license: Apache-2.0
-compatibility: Requires Python 3.9+
-allowed-tools: Read, Grep, Glob  # Restrict available tools
+model: sonnet
+allowed-tools: Read Grep Glob
 ---
 ```
 
