@@ -90,7 +90,7 @@ Make minimal, targeted code changes. Only fix what is actually broken.
 ```bash
 git add -A
 git commit -m "fix: <descriptive message of what was fixed>"
-git push
+git push origin $(git branch --show-current)
 ```
 
 ### Step 8: Wait for CI
