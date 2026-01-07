@@ -38,9 +38,31 @@ claude plugin update sentry-skills@sentry-skills
 
 Or use `/plugin` to open the interactive plugin manager.
 
-### Other Agents
+### Other AI Agents (Cursor, Copilot, Aider, etc.)
 
-Copy the `skills/` directory to your agent's skills location, or reference the SKILL.md files directly according to your agent's documentation.
+Use the `apply` command to generate agent-specific config files for your project:
+
+```bash
+# Clone this repo
+git clone git@github.com:getsentry/skills.git ~/sentry-skills
+cd ~/sentry-skills
+
+# Install dependencies
+bun install
+
+# Install ruler (required) - will be auto-installed on first run
+npm install -g @intellectronica/ruler
+
+# Apply skills to your project
+bun run apply /path/to/your-project --agent cursor
+bun run apply /path/to/your-project --agent copilot
+bun run apply /path/to/your-project --agent cursor,copilot,aider
+bun run apply /path/to/your-project --all
+```
+
+**Supported agents:** cursor, copilot, aider, zed, cline, windsurf, goose, opencode, gemini-cli, firebase-studio, warp, trae, kilo-code, roo-code, qwen-code, augment-code, amazon-q, kiro, junie, open-hands, crush, amp, antigravity, firebender, mistral-vibe, codex-cli, jules
+
+This generates the appropriate config files (e.g., `.cursorrules`, `AGENTS.md`, `.goosehints`) directly in your target project without polluting it with intermediate files.
 
 ## Available Skills
 

@@ -1,0 +1,89 @@
+# Ruler configuration for Sentry Skills
+# This file is used to generate agent-specific config files from skills
+
+[ruler]
+source = ".ruler"
+
+# Enable all supported agents
+# Ruler handles the file generation for each agent
+
+[agents.copilot]
+enabled = true
+
+[agents.cursor]
+enabled = true
+
+[agents.aider]
+enabled = true
+
+[agents.zed]
+enabled = true
+
+[agents.cline]
+enabled = true
+
+[agents.windsurf]
+enabled = true
+
+[agents.goose]
+enabled = true
+
+[agents.opencode]
+enabled = true
+
+[agents.gemini-cli]
+enabled = true
+
+[agents.firebase-studio]
+enabled = true
+
+[agents.warp]
+enabled = true
+
+[agents.trae]
+enabled = true
+
+[agents.kilo-code]
+enabled = true
+
+[agents.roo-code]
+enabled = true
+
+[agents.qwen-code]
+enabled = true
+
+[agents.augment-code]
+enabled = true
+
+[agents.amazon-q]
+enabled = true
+
+[agents.kiro]
+enabled = true
+
+[agents.junie]
+enabled = true
+
+[agents.open-hands]
+enabled = true
+
+[agents.crush]
+enabled = true
+
+[agents.amp]
+enabled = true
+
+[agents.antigravity]
+enabled = true
+
+[agents.firebender]
+enabled = true
+
+[agents.mistral-vibe]
+enabled = true
+
+[agents.codex-cli]
+enabled = true
+
+[agents.jules]
+enabled = true

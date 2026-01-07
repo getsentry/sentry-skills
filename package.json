@@ -1,0 +1,14 @@
+{
+  "name": "@sentry/skills",
+  "version": "1.0.0",
+  "description": "Sentry agent skills for Claude Code and other AI tools",
+  "scripts": {
+    "apply": "bun scripts/apply.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.5",
+    "gray-matter": "^4.0.3",
+    "typescript": "^5.9.3"
+  }
+}
