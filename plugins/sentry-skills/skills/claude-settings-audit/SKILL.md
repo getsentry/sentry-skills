@@ -191,16 +191,13 @@ cat .mcp.json 2>/dev/null || echo "No existing .mcp.json"
 
 #### Sentry MCP (if Sentry SDK detected)
 
-Add to `.mcp.json`:
+Add to `.mcp.json` (replace `{org-slug}` and `{project-slug}` with your Sentry organization and project slugs):
 ```json
 {
   "mcpServers": {
     "sentry": {
-      "command": "uvx",
-      "args": ["mcp-server-sentry"],
-      "env": {
-        "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}"
-      }
+      "type": "http",
+      "url": "https://mcp.sentry.dev/mcp/{org-slug}/{project-slug}"
     }
   }
 }
