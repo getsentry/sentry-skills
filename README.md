@@ -56,6 +56,7 @@ Copy the `skills/` directory to your agent's skills location, or reference the S
 | [find-bugs](plugins/sentry-skills/skills/find-bugs/SKILL.md) | Find bugs and security vulnerabilities in branch changes |
 | [iterate-pr](plugins/sentry-skills/skills/iterate-pr/SKILL.md) | Iterate on a PR until CI passes and feedback is addressed |
 | [claude-settings-audit](plugins/sentry-skills/skills/claude-settings-audit/SKILL.md) | Analyze repo and generate recommended Claude Code settings.json permissions |
+| [agents-md](plugins/sentry-skills/skills/agents-md/SKILL.md) | Maintain AGENTS.md with concise agent instructions |
 
 ## Repository Structure
 
