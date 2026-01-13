@@ -54,7 +54,14 @@ Understand the scope and purpose of all changes before writing the description.
 
 ### Step 3: Write the PR Description
 
-Follow this structure:
+First, check if the repository has a PR template:
+
+```bash
+# Fetch PR template from GitHub
+gh repo view --json pullRequestTemplates --jq '.pullRequestTemplates[0].body'
+```
+
+If a PR template exists, follow its structure and fill in all required sections. Otherwise, follow this structure:
 
 ```markdown
 <brief description of what the PR does>
