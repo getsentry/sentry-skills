@@ -54,24 +54,13 @@ Understand the scope and purpose of all changes before writing the description.
 
 ### Step 3: Write the PR Description
 
-First, check if the repository has a PR template:
+Get the PR template for this repository:
 
 ```bash
-# Fetch PR template from GitHub
-gh repo view --json pullRequestTemplates --jq '.pullRequestTemplates[0].body'
+bash "${CLAUDE_PLUGIN_ROOT}/skills/create-pr/scripts/get-pr-template.sh"
 ```
 
-If a PR template exists, follow its structure and fill in all required sections. Otherwise, follow this structure:
-
-```markdown
-<brief description of what the PR does>
-
-<why these changes are being made - the motivation>
-
-<alternative approaches considered, if any>
-
-<any additional context reviewers need>
-```
+Follow the template structure and fill in all required sections.
 
 **Do NOT include:**
 - "Test plan" sections
