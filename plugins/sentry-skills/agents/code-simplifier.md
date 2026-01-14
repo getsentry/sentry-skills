@@ -1,8 +1,6 @@
 <!--
-Based on prior art from Anthropic's code-simplifier subagent:
+Based on Anthropic's code-simplifier subagent:
 https://github.com/anthropics/claude-plugins-official/blob/main/plugins/code-simplifier/agents/code-simplifier.md
-
-No license information available in source repository.
 -->
 
 ---

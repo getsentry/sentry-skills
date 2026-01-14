@@ -12,7 +12,7 @@ Learn more: https://code.claude.com/docs/en/sub-agents
 
 ### code-simplifier
 
-**Based on:** [Anthropic's code-simplifier subagent](https://github.com/anthropics/claude-plugins-official/blob/main/plugins/code-simplifier/agents/code-simplifier.md) (no license available - noted as prior art)
+**Based on:** [Anthropic's code-simplifier subagent](https://github.com/anthropics/claude-plugins-official/blob/main/plugins/code-simplifier/agents/code-simplifier.md)
 
 Simplifies and refines code for clarity, consistency, and maintainability while preserving all functionality. This subagent operates autonomously and proactively, refining code immediately after it's written or modified.
 
