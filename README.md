@@ -50,9 +50,9 @@ Copy the `skills/` directory to your agent's skills location, or reference the S
 | Skill | Description |
 |-------|-------------|
 | [code-review](plugins/sentry-skills/skills/code-review/SKILL.md) | Sentry code review guidelines and checklist |
+| [code-simplifier](plugins/sentry-skills/skills/code-simplifier/SKILL.md) | Simplify code by removing unnecessary complexity and AI-generated patterns |
 | [commit](plugins/sentry-skills/skills/commit/SKILL.md) | Sentry commit message conventions |
 | [create-pr](plugins/sentry-skills/skills/create-pr/SKILL.md) | Create pull requests following Sentry conventions |
-| [deslop](plugins/sentry-skills/skills/deslop/SKILL.md) | Remove AI-generated code slop from branch changes |
 | [find-bugs](plugins/sentry-skills/skills/find-bugs/SKILL.md) | Find bugs and security vulnerabilities in branch changes |
 | [iterate-pr](plugins/sentry-skills/skills/iterate-pr/SKILL.md) | Iterate on a PR until CI passes and feedback is addressed |
 | [claude-settings-audit](plugins/sentry-skills/skills/claude-settings-audit/SKILL.md) | Analyze repo and generate recommended Claude Code settings.json permissions |
