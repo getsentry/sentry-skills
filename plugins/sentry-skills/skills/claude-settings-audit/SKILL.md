@@ -144,7 +144,6 @@ If this is a Sentry project (or sentry-skills plugin is installed), include:
   "Skill(sentry-skills:commit)",
   "Skill(sentry-skills:create-pr)",
   "Skill(sentry-skills:code-review)",
-  "Skill(sentry-skills:code-simplifier)",
   "Skill(sentry-skills:find-bugs)",
   "Skill(sentry-skills:iterate-pr)",
   "Skill(sentry-skills:claude-settings-audit)",
