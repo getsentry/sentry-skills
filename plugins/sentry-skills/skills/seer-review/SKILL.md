@@ -87,6 +87,10 @@ Do NOT plan fixes yet. Only evaluate validity.
 OUTPUT FORMAT:
 VERDICT: [fully valid | not valid | partially valid (specify which part)]
 
+SUMMARY: [1-2 sentence summary of the issue that would make sense to someone who has NOT
+read the full Seer output. This summary will be shown in a dialog, so it must be
+standalone and clearly explain what Seer is concerned about and your assessment.]
+
 OPTIONS CONSIDERED:
 1. Fully valid
    - Implication: [what this means if true]
@@ -103,14 +107,38 @@ OPTIONS CONSIDERED:
 
 ## Step 4: Present Results to User
 
-After all sub-agents complete, aggregate their findings and use the AskUserQuestion tool to present each issue to the user.
+After all sub-agents complete, present results in two phases:
 
-For each issue, present:
-- The original Seer comment (severity, file, line, description)
-- The sub-agent's verdict and reasoning
-- Options: Accept (fix it), Reject (ignore it), or Modify (partially accept)
+### Phase 1: Print Raw Seer Output
 
-The sub-agent's verdict should be the recommended option, but the user has ultimate authority.
+First, print the complete Seer output with reference numbers. Emphasize this is Seer's uninterpreted output:
+
+```
+## Raw Seer Output
+
+The following issues were identified by Seer. Note: This is Seer's uninterpreted
+output—Seer does not have access to our conversation context.
+
+### Issue #1: [file:line] [SEVERITY]
+[Full description from Seer]
+Suggested fix: [Seer's suggested fix]
+
+### Issue #2: [file:line] [SEVERITY]
+[Full description from Seer]
+Suggested fix: [Seer's suggested fix]
+```
+
+### Phase 2: Ask User with Summaries
+
+Then use AskUserQuestion for each issue, using the sub-agent's SUMMARY in the question. The summary must be clear enough that users can make decisions without reading the raw output above.
+
+For each issue:
+- Reference the issue number (e.g., "Issue #1")
+- Include the sub-agent's summary (1-2 sentences)
+- Offer options: Accept, Reject, or Modify
+- Mark the sub-agent's verdict as the recommended option
+
+The user has ultimate authority over all decisions.
 
 ## Step 5: Plan and Implement Fixes
 
