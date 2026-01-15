@@ -87,9 +87,10 @@ Do NOT plan fixes yet. Only evaluate validity.
 OUTPUT FORMAT:
 VERDICT: [fully valid | not valid | partially valid (specify which part)]
 
-SUMMARY: [1-2 sentence summary of the issue that would make sense to someone who has NOT
-read the full Seer output. This summary will be shown in a dialog, so it must be
-standalone and clearly explain what Seer is concerned about and your assessment.]
+SUMMARY: [1-2 sentence summary for someone who has NOT read the full Seer output.
+First, briefly state what Seer flagged. Then, state your assessment of whether it's valid.
+This will be shown in a dialog, so it must be standalone and clearly distinguish
+Seer's concern from your evaluation.]
 
 OPTIONS CONSIDERED:
 1. Fully valid
