@@ -1,6 +1,20 @@
 ---
 name: seer-review
-description: Get AI-powered code review on local changes using Sentry CLI. Use when reviewing commits before creating a PR, finding bugs in recent changes, or getting automated code feedback. Triggers on: review my code, find bugs in commit, sentry review, ai code review, seer.
+description: >-
+  Get AI-powered code review on local changes using Sentry CLI.
+  Use when reviewing commits before creating a PR, finding bugs in recent changes,
+  or getting automated code feedback.
+  Triggers on: review my code, find bugs in commit, sentry review, ai code review, seer.
+allowed-tools:
+  - Bash
+  - Task
+  - Read
+  - Edit
+  - Write
+  - Glob
+  - Grep
+  - AskUserQuestion
+  - EnterPlanMode
 ---
 
 # Seer Code Review
@@ -11,67 +25,114 @@ Review local code changes using Sentry's AI-powered bug prediction service.
 
 This skill invokes `sentry-cli review` to analyze the most recent commit (HEAD vs HEAD~1) and get AI feedback on potential bugs before creating a pull request.
 
-## Step 1: Resolve CLI Path
+**Important context:** Seer analyzes code without knowing **why** changes were made. You have context from the user's original request that Seer lacks. Treat Seer's suggestions with healthy skepticism and evaluate them against your existing context.
 
-Get the sentry-cli path by running the helper script:
+## Step 1: Run Review
 
-```bash
-./plugins/sentry-skills/skills/seer-review/scripts/get-sentry-cli.sh
-```
-
-Store the output as `SENTRY_CLI` for subsequent commands.
-
-## Step 2: Run the Review
-
-Execute the review command:
+Execute the review script:
 
 ```bash
-$SENTRY_CLI review
+./plugins/sentry-skills/skills/seer-review/scripts/run-review.sh
 ```
 
-**Expected outputs:**
+## Step 2: Handle Errors
 
-1. **Success with no issues**: "No issues found in this commit."
-2. **Success with issues**: Lists predictions with severity (HIGH/MEDIUM/LOW), file path, line number, description, and suggested fixes
-3. **Error cases**:
-   - "HEAD is a merge commit" - cannot review merge commits
-   - "HEAD has no parent commit" - cannot review initial commit
-   - "Diff is too large" - diff exceeds 500KB limit
-   - "Authentication required" - user needs to run `sentry-cli login`
-   - "No remote URL found" - repo needs an origin or upstream remote
-
-## Step 3: Process Results
-
-### If no issues found
-Report success to the user.
-
-### If issues found
-For each prediction in the output:
-
-1. **Present the issue** to the user with:
-   - Severity level
-   - File and line number
-   - Description of the problem
-   - Suggested fix (if provided)
-
-2. **Offer to fix**: Ask the user if they want you to apply the suggested fixes.
-
-3. **Apply fixes** (if user agrees):
-   - Read the file at the specified path
-   - Apply the suggested fix at the indicated line
-   - Show the change to the user
-
-4. **Verify fixes**: After applying all fixes, offer to re-run the review to confirm the issues are resolved.
-
-## Step 4: Handle Errors
+If the review command fails, handle these common errors:
 
 | Error | Resolution |
 |-------|------------|
-| Authentication required | Tell user to run `sentry-cli login` |
+| Authentication required | Tell user to create a token at https://sentry.io/settings/account/api/auth-tokens/ with the correct permissions |
+| Command not found / unavailable | Tell user to upgrade Sentry CLI to the latest version |
 | HEAD is a merge commit | Tell user to review from a non-merge commit |
 | HEAD has no parent | Tell user this is the initial commit, cannot review |
 | Diff too large | Suggest breaking into smaller commits |
 | No remote URL | Tell user to add a git remote |
+
+If an error occurs, stop here and report the error to the user with the resolution.
+
+## Step 3: Evaluate Each Comment
+
+If the review returns issues, you must evaluate each one against your existing context.
+
+**Critical:** Seer analyzes code in isolation without access to the conversation history or the user's intent. This means Seer may identify issues that seem valid from its perspective but are incorrect given what you know. For example:
+- Seer might flag a behavioral change as a bug when the user explicitly requested that change
+- Seer might suggest reverting code that the user specifically asked you to write
+- Seer might identify a "missing" check that was intentionally removed
+
+**Do not blindly trust Seer's confidence levels or severity ratings.** Seer may label an issue as "critical" or express high confidence, but this confidence is based solely on its limited context. When your context contradicts Seer's assessment, your context takes precedence.
+
+**For each Seer comment, spawn a Plan sub-agent** (using the Task tool) to evaluate validity:
+
+```
+Evaluate this Seer code review comment against the context of the user's original request.
+
+SEER COMMENT:
+[paste the comment here]
+
+USER'S ORIGINAL CONTEXT:
+[summarize what the user asked you to do and why]
+
+IMPORTANT: Seer does not have access to the conversation history or the user's intent.
+Its confidence levels and severity ratings are based only on its limited context.
+If Seer's suggestion contradicts what the user asked for, the suggestion is likely invalid
+regardless of how confident or critical Seer's assessment appears.
+
+Determine if this issue is:
+- **Fully valid**: The issue is a real problem that should be fixed
+- **Not valid**: The issue is incorrect because it conflicts with the user's intent
+- **Partially valid**: Part of the issue is valid (specify which part)
+
+Do NOT plan fixes yet. Only evaluate validity.
+
+OUTPUT FORMAT:
+VERDICT: [fully valid | not valid | partially valid (specify which part)]
+
+OPTIONS CONSIDERED:
+1. Fully valid
+   - Implication: [what this means if true]
+   - Reasoning: [why you accepted/rejected this - one sentence]
+2. Not valid
+   - Implication: [what this means if true]
+   - Reasoning: [why you accepted/rejected this - one sentence]
+3. Partially valid (if applicable)
+   - Implication: [what this means if true]
+   - Reasoning: [why you accepted/rejected this - one sentence]
+```
+
+**Spawn these sub-agents in parallel** for efficiency when there are multiple comments.
+
+## Step 4: Present Results to User
+
+After all sub-agents complete, aggregate their findings and use the AskUserQuestion tool to present each issue to the user.
+
+For each issue, present:
+- The original Seer comment (severity, file, line, description)
+- The sub-agent's verdict and reasoning
+- Options: Accept (fix it), Reject (ignore it), or Modify (partially accept)
+
+The sub-agent's verdict should be the recommended option, but the user has ultimate authority.
+
+## Step 5: Plan and Implement Fixes
+
+If the user accepts any issues as valid:
+
+1. Use EnterPlanMode to plan fixes for the accepted issues only
+2. Get user approval on the plan
+3. Implement the approved fixes
+4. Commit the changes if appropriate
+
+## Step 6: Re-run Review (Loop)
+
+After implementing fixes, re-run the review:
+
+```bash
+./plugins/sentry-skills/skills/seer-review/scripts/run-review.sh
+```
+
+**Repeat this entire workflow** (Steps 1-6) until one of these conditions is met:
+- Seer returns an error
+- Seer finds no issues
+- User rejects all remaining comments
 
 ## Notes
 
@@ -79,3 +140,4 @@ For each prediction in the output:
 - Binary files are automatically skipped
 - The API has a 10-minute timeout for long-running analysis
 - The base commit must be pushed to the remote repository
+- Maximum diff size: 500 KB
