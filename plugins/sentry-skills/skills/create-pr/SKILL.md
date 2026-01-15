@@ -98,18 +98,6 @@ EOF
 - `fix(scope): Fix the bug`
 - `ref: Refactor something`
 
-### Step 5: Add Reviewers (if known)
-
-```bash
-# Request review from specific people
-gh pr edit --add-reviewer username1,username2
-
-# Or request from a team
-gh pr edit --add-reviewer @getsentry/team-name
-```
-
-Limit to 1-3 reviewers to maintain clear ownership.
-
 ## PR Description Examples
 
 ### Feature PR
@@ -171,6 +159,28 @@ Reference issues in the PR body:
 - **Keep PRs reviewable** - Smaller PRs get faster, better reviews
 - **Explain the why** - Code shows what; description explains why
 - **Mark WIP early** - Use draft PRs for early feedback
+
+## Editing Existing PRs
+
+If you need to update a PR after creation, use `gh api` instead of `gh pr edit`:
+
+```bash
+# Update PR description
+gh api -X PATCH repos/{owner}/{repo}/pulls/PR_NUMBER -f body='$(cat <<'EOF'
+Updated description here
+EOF
+)'
+
+# Update PR title
+gh api -X PATCH repos/{owner}/{repo}/pulls/PR_NUMBER -f title='new: Title here'
+
+# Update both
+gh api -X PATCH repos/{owner}/{repo}/pulls/PR_NUMBER \
+  -f title='new: Title' \
+  -f body='New description'
+```
+
+Note: `gh pr edit` is currently broken due to GitHub's Projects (classic) deprecation.
 
 ## References
 
