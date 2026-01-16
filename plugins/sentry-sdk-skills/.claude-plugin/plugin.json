@@ -1,0 +1,7 @@
+{
+  "name": "sentry-sdk-skills",
+  "description": "SDK-specific agent skills for Sentry SDK engineers",
+  "author": {
+    "name": "Sentry"
+  }
+}

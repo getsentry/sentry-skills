@@ -63,6 +63,18 @@ Copy the `skills/` directory to your agent's skills location, or reference the S
 |----------|-------------|
 | [code-simplifier](plugins/sentry-skills/agents/code-simplifier.md) | Simplifies and refines code for clarity, consistency, and maintainability while preserving all functionality |
 
+## SDK Skills (sentry-sdk-skills)
+
+A separate plugin for SDK engineers. Install with:
+
+```bash
+claude plugin install sentry-sdk-skills@sentry-skills
+```
+
+| Skill | Description |
+|-------|-------------|
+| [add-platform-marketing-page](plugins/sentry-sdk-skills/skills/add-platform-marketing-page/SKILL.md) | Add platforms from gettingStartedDocs to static-sites marketing pages |
+
 ## Repository Structure
 
 ```

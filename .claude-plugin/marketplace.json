@@ -15,6 +15,15 @@
       },
       "source": "./plugins/sentry-skills",
       "category": "productivity"
+    },
+    {
+      "name": "sentry-sdk-skills",
+      "description": "SDK-specific agent skills for Sentry SDK engineers",
+      "author": {
+        "name": "Sentry"
+      },
+      "source": "./plugins/sentry-sdk-skills",
+      "category": "productivity"
     }
   ]
 }
