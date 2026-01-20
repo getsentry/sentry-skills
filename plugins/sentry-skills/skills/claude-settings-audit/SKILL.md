@@ -147,7 +147,8 @@ If this is a Sentry project (or sentry-skills plugin is installed), include:
   "Skill(sentry-skills:find-bugs)",
   "Skill(sentry-skills:iterate-pr)",
   "Skill(sentry-skills:claude-settings-audit)",
-  "Skill(sentry-skills:agents-md)"
+  "Skill(sentry-skills:agents-md)",
+  "Skill(sentry-skills:brand-guidelines)"
 ]
 ```
 
