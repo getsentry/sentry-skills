@@ -150,6 +150,37 @@ allowed-tools: Read Grep Glob
 ---
 ```
 
+## Vendoring Skills
+
+We vendor (copy) skills and agents that we use regularly into this repository rather than depending on external sources at runtime. This approach:
+
+- **Ensures consistency** - Everyone on the team uses the same version of each skill
+- **Enables customization** - We can adapt skills to Sentry-specific conventions
+- **Improves reliability** - No external dependencies that could change or disappear
+
+### Attribution
+
+When vendoring a skill or agent from an external source, retain proper attribution:
+
+1. **Add a comment** at the top of the file referencing the original source:
+   ```markdown
+   <!--
+   Based on [Original Name] by [Author/Org]:
+   https://github.com/example/original-source
+   -->
+   ```
+
+2. **Include a LICENSE file** in the skill directory if the original has specific licensing requirements:
+   ```
+   plugins/sentry-skills/skills/vendored-skill/
+   ├── SKILL.md
+   └── LICENSE      # Original license text
+   ```
+
+### Example: code-simplifier
+
+The `code-simplifier` agent is vendored from [Anthropic's official plugins](https://github.com/anthropics/claude-plugins-official). See the attribution comment at the top of the agent file.
+
 ## References
 
 - [Agent Skills Specification](https://agentskills.io/specification)
