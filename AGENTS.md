@@ -23,6 +23,8 @@ Each skill is a directory containing a `SKILL.md` file with YAML frontmatter (`n
 
 ### Frontmatter
 
+**Important:** The YAML frontmatter must be at the very beginning of the file. Do not place comments or any other content before it—parsers expect `---` as the first line.
+
 **Required:**
 - `name` - kebab-case, 1-64 chars
 - `description` - up to 1024 chars, include trigger keywords
@@ -30,7 +32,7 @@ Each skill is a directory containing a `SKILL.md` file with YAML frontmatter (`n
 **Optional:**
 - `model` - override model (`sonnet`, `opus`, `haiku`)
 - `allowed-tools` - space-delimited list of permitted tools
-- `license` - license name or path
+- `license` - license name or path (for attribution, place a LICENSE file in the skill directory)
 - `compatibility` - environment requirements (max 500 chars)
 
 ```yaml
@@ -39,7 +41,10 @@ name: example-skill
 description: What this skill does and when to use it. Include trigger keywords.
 model: sonnet
 allowed-tools: Read Grep Glob Bash
+license: LICENSE
 ---
+
+<!-- Attribution comments go AFTER the frontmatter -->
 
 # Example Skill
 

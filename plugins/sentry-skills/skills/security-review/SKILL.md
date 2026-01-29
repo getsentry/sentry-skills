@@ -1,3 +1,11 @@
+---
+name: security-review
+description: This skill should be used when the user asks to "security review", "find vulnerabilities", "check for security issues", "audit code security", "OWASP review", "pen test code", "identify security bugs", or mentions reviewing code for injection, XSS, authentication, authorization, cryptography, or other security concerns. Provides systematic security code review following OWASP guidelines.
+model: sonnet
+allowed-tools: Read Grep Glob Bash Task
+license: LICENSE
+---
+
 <!--
 Reference material in this skill is based on the OWASP Cheat Sheet Series:
 https://cheatsheetseries.owasp.org/
@@ -8,12 +16,6 @@ https://creativecommons.org/licenses/by-sa/4.0/
 
 OWASP Foundation: https://owasp.org/
 -->
----
-name: security-review
-description: This skill should be used when the user asks to "security review", "find vulnerabilities", "check for security issues", "audit code security", "OWASP review", "pen test code", "identify security bugs", or mentions reviewing code for injection, XSS, authentication, authorization, cryptography, or other security concerns. Provides systematic security code review following OWASP guidelines.
-model: sonnet
-allowed-tools: Read Grep Glob Bash Task
----
 
 # Security Review Skill
 
