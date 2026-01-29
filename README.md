@@ -4,46 +4,33 @@ Agent skills for Sentry employees, following the [Agent Skills](https://agentski
 
 ## Installation
 
-### Claude Code (via Marketplace)
+### Claude Code
 
 ```bash
-# Add the marketplace
 claude plugin marketplace add getsentry/skills
-
-# Install the plugin
 claude plugin install sentry-skills@sentry-skills
 ```
 
-### Claude Code (from local clone)
+Restart Claude Code after installation. Skills activate automatically when relevant.
+
+**Update:**
 
 ```bash
-# Clone the repository
-git clone git@github.com:getsentry/skills.git ~/sentry-skills
-
-# Install the marketplace from the local clone
-claude plugin marketplace add ~/sentry-skills
-
-# Install the plugin directly
-claude plugin install sentry-skills
-```
-
-After installation, restart Claude Code. The skills will be automatically invoked when relevant to your task.
-
-### Updating
-
-```bash
-# Update the marketplace index
 claude plugin marketplace update
-
-# Update the plugin
 claude plugin update sentry-skills@sentry-skills
 ```
 
-Or use `/plugin` to open the interactive plugin manager.
+Or run `/plugin` to open the plugin manager.
 
-### Other Agents
+### Skills Package (skills.sh)
 
-Copy the `skills/` directory to your agent's skills location, or reference the SKILL.md files directly according to your agent's documentation.
+For agents supporting the [skills.sh](https://skills.sh) ecosystem:
+
+```bash
+npx skills add getsentry/skills
+```
+
+Works with Claude Code, Cursor, Cline, GitHub Copilot, and other compatible agents.
 
 ## Available Skills
 
@@ -66,7 +53,17 @@ Copy the `skills/` directory to your agent's skills location, or reference the S
 |----------|-------------|
 | [code-simplifier](plugins/sentry-skills/agents/code-simplifier.md) | Simplifies and refines code for clarity, consistency, and maintainability while preserving all functionality |
 
-## Repository Structure
+## Contributing
+
+### Local Development
+
+```bash
+git clone git@github.com:getsentry/skills.git ~/sentry-skills
+claude plugin marketplace add ~/sentry-skills
+claude plugin install sentry-skills
+```
+
+### Repository Structure
 
 ```
 sentry-skills/
@@ -88,11 +85,11 @@ sentry-skills/
 └── README.md                 # This file
 ```
 
-## Creating New Skills
+### Creating New Skills
 
 Skills follow the [Agent Skills specification](https://agentskills.io/specification). Each skill requires a `SKILL.md` file with YAML frontmatter.
 
-### Skill Template
+#### Skill Template
 
 Create a new directory under `plugins/sentry-skills/skills/`:
 
@@ -125,13 +122,13 @@ Concrete examples showing expected input/output.
 - Edge cases to handle
 ```
 
-### Naming Conventions
+#### Naming Conventions
 
 - **name**: 1-64 characters, lowercase alphanumeric with hyphens only
 - **description**: Up to 1024 characters, include trigger keywords
 - Keep SKILL.md under 500 lines; split longer content into reference files
 
-### Optional Fields
+#### Optional Fields
 
 | Field | Description |
 |-------|-------------|
@@ -151,7 +148,7 @@ allowed-tools: Read Grep Glob
 ---
 ```
 
-## Where Skills Belong
+### Where Skills Belong
 
 Skills should live in the appropriate location based on their scope:
 
@@ -166,7 +163,7 @@ When deciding where to place a skill:
 - If only a specific team needs it, create or use a domain-specific plugin
 - If it only makes sense in one repo, keep it in that repo
 
-### Marketplace Structure
+#### Marketplace Structure
 
 This repository is a Claude Code **marketplace** - a collection of plugins that can be installed independently. The marketplace manifest (`.claude-plugin/marketplace.json`) lists all available plugins:
 
@@ -195,7 +192,7 @@ To add a new domain-specific plugin:
 2. Add skills under `plugins/<plugin-name>/skills/`
 3. Register the plugin in `.claude-plugin/marketplace.json`
 
-## Vendoring Skills
+### Vendoring Skills
 
 We vendor (copy) skills and agents that we use regularly into this repository rather than depending on external sources at runtime. This approach:
 
@@ -203,7 +200,7 @@ We vendor (copy) skills and agents that we use regularly into this repository ra
 - **Enables customization** - We can adapt skills to Sentry-specific conventions
 - **Improves reliability** - No external dependencies that could change or disappear
 
-### Attribution
+#### Attribution
 
 When vendoring a skill or agent from an external source, retain proper attribution:
 
@@ -222,7 +219,7 @@ When vendoring a skill or agent from an external source, retain proper attributi
    └── LICENSE      # Original license text
    ```
 
-### Example: code-simplifier
+#### Example: code-simplifier
 
 The `code-simplifier` agent is vendored from [Anthropic's official plugins](https://github.com/anthropics/claude-plugins-official). See the attribution comment at the top of the agent file.
 
