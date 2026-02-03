@@ -51,6 +51,10 @@ license: LICENSE
 Instructions for the agent.
 ```
 
+## Skill Design Guidelines
+
+When writing skills that include Python scripts, always instruct the agent to use `uv run <script>` instead of `python <script>` or `python3 <script>`.
+
 ## References
 
 - [Agent Skills Spec](https://agentskills.io/specification)

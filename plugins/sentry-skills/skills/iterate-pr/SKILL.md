@@ -16,7 +16,7 @@ Continuously iterate on the current branch until all CI checks pass and review f
 Fetches CI check status and extracts failure snippets from logs.
 
 ```bash
-python scripts/fetch_pr_checks.py [--pr NUMBER]
+uv run scripts/fetch_pr_checks.py [--pr NUMBER]
 ```
 
 Returns JSON:
@@ -36,7 +36,7 @@ Returns JSON:
 Fetches and categorizes PR review feedback using the [LOGAF scale](https://develop.sentry.dev/engineering-practices/code-review/#logaf-scale).
 
 ```bash
-python scripts/fetch_pr_feedback.py [--pr NUMBER]
+uv run scripts/fetch_pr_feedback.py [--pr NUMBER]
 ```
 
 Returns JSON with feedback categorized as:

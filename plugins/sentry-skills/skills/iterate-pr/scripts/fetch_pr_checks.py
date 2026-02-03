@@ -170,7 +170,7 @@ def main():
             "name": check.get("name", "unknown"),
             "status": check.get("bucket", check.get("state", "unknown")),
             "link": check.get("link", ""),
-            "workflow": check.get("workflow", {}).get("name", ""),
+            "workflow": check.get("workflow", ""),
         }
 
         # For failures, try to get log snippet
