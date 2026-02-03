@@ -16,6 +16,7 @@ Categories (using LOGAF scale - see https://develop.sentry.dev/engineering-pract
 - bot: Automated comments (Codecov, Sentry bot, etc.)
 - resolved: Already resolved threads
 """
+from __future__ import annotations
 
 import argparse
 import json

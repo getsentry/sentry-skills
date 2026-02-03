@@ -9,6 +9,7 @@ If --pr is not specified, uses the PR for the current branch.
 
 Output: JSON to stdout with structured check data.
 """
+from __future__ import annotations
 
 import argparse
 import json
