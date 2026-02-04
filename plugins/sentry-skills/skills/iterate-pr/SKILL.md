@@ -9,6 +9,8 @@ Continuously iterate on the current branch until all CI checks pass and review f
 
 **Requires**: GitHub CLI (`gh`) authenticated.
 
+**Important**: All scripts must be run from the repository root directory (where `.git` is located), not from the skill directory. Use the full path to the script via `${CLAUDE_SKILL_ROOT}`.
+
 ## Bundled Scripts
 
 ### `scripts/fetch_pr_checks.py`
@@ -16,7 +18,7 @@ Continuously iterate on the current branch until all CI checks pass and review f
 Fetches CI check status and extracts failure snippets from logs.
 
 ```bash
-uv run scripts/fetch_pr_checks.py [--pr NUMBER]
+uv run ${CLAUDE_SKILL_ROOT}/scripts/fetch_pr_checks.py [--pr NUMBER]
 ```
 
 Returns JSON:
@@ -36,7 +38,7 @@ Returns JSON:
 Fetches and categorizes PR review feedback using the [LOGAF scale](https://develop.sentry.dev/engineering-practices/code-review/#logaf-scale).
 
 ```bash
-uv run scripts/fetch_pr_feedback.py [--pr NUMBER]
+uv run ${CLAUDE_SKILL_ROOT}/scripts/fetch_pr_feedback.py [--pr NUMBER]
 ```
 
 Returns JSON with feedback categorized as:
@@ -58,7 +60,7 @@ Stop if no PR exists for the current branch.
 
 ### 2. Check CI Status
 
-Run `scripts/fetch_pr_checks.py` to get structured failure data.
+Run `${CLAUDE_SKILL_ROOT}/scripts/fetch_pr_checks.py` to get structured failure data.
 
 **Wait if pending:** If bot-related checks (sentry, codecov, cursor, bugbot, seer) are still running, wait before proceeding—they may post additional feedback.
 
@@ -73,7 +75,7 @@ Do NOT assume what failed based on check name alone—always read the logs.
 
 ### 4. Gather Review Feedback
 
-Run `scripts/fetch_pr_feedback.py` to get categorized feedback.
+Run `${CLAUDE_SKILL_ROOT}/scripts/fetch_pr_feedback.py` to get categorized feedback.
 
 ### 5. Handle Feedback by LOGAF Priority
 
