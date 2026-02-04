@@ -77,28 +77,28 @@ def extract_failure_snippet(log_text: str, max_lines: int = 50) -> str:
     """
     lines = log_text.split("\n")
 
-    # Patterns that indicate failure points
+    # Patterns that indicate failure points (case-insensitive via re.IGNORECASE)
     failure_patterns = [
-        r"(?i)error[:\s]",
-        r"(?i)failed[:\s]",
-        r"(?i)failure[:\s]",
-        r"(?i)traceback",
-        r"(?i)exception",
-        r"(?i)assert(ion)?.*failed",
-        r"(?i)FAILED",
-        r"(?i)panic:",
-        r"(?i)fatal:",
-        r"(?i)npm ERR!",
-        r"(?i)yarn error",
-        r"(?i)ModuleNotFoundError",
-        r"(?i)ImportError",
-        r"(?i)SyntaxError",
-        r"(?i)TypeError",
-        r"(?i)ValueError",
-        r"(?i)KeyError",
-        r"(?i)AttributeError",
-        r"(?i)NameError",
-        r"(?i)IndentationError",
+        r"error[:\s]",
+        r"failed[:\s]",
+        r"failure[:\s]",
+        r"traceback",
+        r"exception",
+        r"assert(ion)?.*failed",
+        r"FAILED",
+        r"panic:",
+        r"fatal:",
+        r"npm ERR!",
+        r"yarn error",
+        r"ModuleNotFoundError",
+        r"ImportError",
+        r"SyntaxError",
+        r"TypeError",
+        r"ValueError",
+        r"KeyError",
+        r"AttributeError",
+        r"NameError",
+        r"IndentationError",
         r"===.*FAILURES.*===",
         r"___.*___",  # pytest failure separators
     ]
@@ -108,7 +108,7 @@ def extract_failure_snippet(log_text: str, max_lines: int = 50) -> str:
     # Find lines matching failure patterns
     failure_indices = []
     for i, line in enumerate(lines):
-        if re.search(combined_pattern, line):
+        if re.search(combined_pattern, line, re.IGNORECASE):
             failure_indices.append(i)
 
     if not failure_indices:
