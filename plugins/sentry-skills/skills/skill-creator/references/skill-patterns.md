@@ -1,6 +1,6 @@
 # Skill Patterns
 
-Concrete examples of skill structures at each complexity tier, drawn from existing skills in this repository.
+Concrete examples of skill structures at each complexity tier.
 
 ## Simple: SKILL.md Only
 
@@ -10,7 +10,7 @@ Use when the entire skill fits in under ~200 lines with no external resources ne
 
 **Structure:**
 ```
-plugins/sentry-skills/skills/brand-guidelines/
+brand-guidelines/
 └── SKILL.md
 ```
 
@@ -30,7 +30,7 @@ Use when the skill automates a multi-step workflow with structured data processi
 
 **Structure:**
 ```
-plugins/sentry-skills/skills/iterate-pr/
+iterate-pr/
 ├── SKILL.md
 └── scripts/
     ├── fetch_pr_checks.py
@@ -61,7 +61,7 @@ Use when the skill covers a broad domain with conditional knowledge loading.
 
 **Structure:**
 ```
-plugins/sentry-skills/skills/security-review/
+security-review/
 ├── SKILL.md
 ├── LICENSE
 ├── references/
@@ -143,6 +143,6 @@ Returns JSON:
 
 ### Hardcoded Paths
 
-**Problem:** SKILL.md references `plugins/sentry-skills/skills/my-skill/scripts/tool.py`.
+**Problem:** SKILL.md references a hardcoded path like `plugins/my-plugin/skills/my-skill/scripts/tool.py`.
 
 **Fix:** Always use `${CLAUDE_SKILL_ROOT}/scripts/tool.py`. The variable resolves to the skill's directory regardless of where the agent runs from.

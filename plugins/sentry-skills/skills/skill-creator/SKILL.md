@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Create new agent skills for this repository. Use when asked to "create a skill", "add a new skill", "write a skill", "make a skill", "build a skill", or scaffold a new skill with SKILL.md. Guides through requirements, writing, registration, and verification.
+description: Create new agent skills following the Agent Skills specification. Use when asked to "create a skill", "add a new skill", "write a skill", "make a skill", "build a skill", or scaffold a new skill with SKILL.md. Guides through requirements, writing, registration, and verification.
 ---
 
 <!--
@@ -11,7 +11,7 @@ https://github.com/openai/codex-plugins-official
 
 # Create a New Skill
 
-Guide the user through creating a new skill for the sentry-skills repository. Follow each step in order.
+Guide the user through creating a new agent skill following the [Agent Skills specification](https://agentskills.io/specification). Follow each step in order.
 
 ## Step 1: Understand the Skill
 
@@ -21,11 +21,12 @@ Gather requirements before writing anything.
 1. What should this skill do? (one sentence)
 2. When should an agent use it? (trigger phrases)
 3. What tools does the skill need? (Read, Grep, Glob, Bash, Task, WebFetch, etc.)
+4. Where should the skill live? (which plugin or directory)
 
 **Determine the skill name:**
 - Lowercase alphanumeric with hyphens, 1-64 characters
 - Descriptive and unique among existing skills
-- Check `plugins/sentry-skills/skills/` to avoid name collisions
+- Check the target skills directory to avoid name collisions
 
 **Choose a complexity tier:**
 
@@ -40,21 +41,15 @@ Read `${CLAUDE_SKILL_ROOT}/references/design-principles.md` for guidance on keep
 
 ## Step 2: Study Existing Skills
 
-Read 1-2 existing skills that match the chosen tier for pattern reference.
-
-| Tier | Example Skills to Read |
-|------|----------------------|
-| Simple | `brand-guidelines/SKILL.md`, `commit/SKILL.md` |
-| With references | `security-review/SKILL.md` |
-| With scripts | `iterate-pr/SKILL.md` |
+Before writing, study 1-2 existing skills that match the chosen tier. Look for skills in the target repository or plugin to understand local conventions.
 
 Read `${CLAUDE_SKILL_ROOT}/references/skill-patterns.md` for concrete examples of each tier.
 
-Also read `CLAUDE.md` at the repository root for repo-specific conventions.
+Also read `CLAUDE.md` (or `AGENTS.md`) at the repository root for repo-specific conventions that the skill should follow.
 
 ## Step 3: Write the SKILL.md
 
-Create `plugins/sentry-skills/skills/<name>/SKILL.md`.
+Create `<skill-directory>/<name>/SKILL.md`.
 
 ### Frontmatter
 
@@ -121,9 +116,11 @@ https://github.com/example/original-source
 Use for domain knowledge the agent loads conditionally.
 
 ```
-plugins/sentry-skills/skills/<name>/references/
-├── topic-a.md
-└── topic-b.md
+<name>/
+├── SKILL.md
+└── references/
+    ├── topic-a.md
+    └── topic-b.md
 ```
 
 Reference from SKILL.md with:
@@ -138,8 +135,10 @@ Keep each reference file focused on one topic. Use markdown with tables and code
 Use for workflow automation that benefits from structured Python.
 
 ```
-plugins/sentry-skills/skills/<name>/scripts/
-└── do_thing.py
+<name>/
+├── SKILL.md
+└── scripts/
+    └── do_thing.py
 ```
 
 **Script requirements:**
@@ -167,31 +166,12 @@ Include a LICENSE file in the skill directory when vendoring content with specif
 
 ## Step 5: Register the Skill
 
-Complete **all four** registration steps. Missing any will cause the skill to be unavailable or fail audits.
+Registration steps vary by repository. Check the repository's `CLAUDE.md` or `README.md` for specific instructions.
 
-### 5a. Add to README.md
-
-Add a row to the **Available Skills** table in `README.md` (maintain alphabetical order by skill name):
-
-```markdown
-| [<name>](plugins/sentry-skills/skills/<name>/SKILL.md) | <short description> |
-```
-
-### 5b. Add to .claude/settings.json
-
-Add to the `permissions.allow` array:
-
-```json
-"Skill(sentry-skills:<name>)"
-```
-
-### 5c. Add to claude-settings-audit allowlist
-
-Add the same permission string to the skills list in `plugins/sentry-skills/skills/claude-settings-audit/SKILL.md` under the **Skills (for Sentry Projects)** section.
-
-### 5d. Verify directory-name match
-
-Confirm the directory name under `plugins/sentry-skills/skills/` matches the `name` field in the SKILL.md frontmatter exactly.
+1. **Verify directory-name match** — confirm the directory name matches the `name` field in SKILL.md frontmatter exactly
+2. **Update documentation** — add the skill to any skills index or table in README.md
+3. **Update permissions** — if the repo has `.claude/settings.json`, add `Skill(<plugin>:<name>)` to the `permissions.allow` array
+4. **Check CLAUDE.md** — read the repository's `CLAUDE.md` for any additional registration steps specific to that project
 
 ## Step 6: Verify
 
@@ -211,10 +191,10 @@ Run through this checklist before finishing:
 - [ ] Reference files loaded conditionally (not unconditionally)
 
 ### Registration
-- [ ] Row added to README.md Available Skills table
-- [ ] `Skill(sentry-skills:<name>)` added to `.claude/settings.json`
-- [ ] `Skill(sentry-skills:<name>)` added to `claude-settings-audit/SKILL.md`
 - [ ] Directory name matches frontmatter `name`
+- [ ] Skill added to repo documentation (README or equivalent)
+- [ ] Permissions updated (if applicable)
+- [ ] Any repo-specific registration steps completed (check CLAUDE.md)
 
 ### Scripts (if applicable)
 - [ ] Uses `uv run ${CLAUDE_SKILL_ROOT}/scripts/...`
