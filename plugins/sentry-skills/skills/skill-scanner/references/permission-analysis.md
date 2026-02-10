@@ -40,22 +40,22 @@ For each tool in `allowed-tools`, verify:
 Expected tool sets by skill type:
 
 ### Analysis / Review Skills
-- **Expected**: `Read Grep Glob` or `Read Grep Glob Bash`
+- **Expected**: `Read, Grep, Glob` or `Read, Grep, Glob, Bash`
 - **Bash justification**: Running linters, type checkers, or bundled scripts
 - **Examples**: code-review, security-review, find-bugs
 
 ### Workflow Automation Skills
-- **Expected**: `Read Grep Glob Bash`
+- **Expected**: `Read, Grep, Glob, Bash`
 - **Bash justification**: Git operations, CI commands, gh CLI
 - **Examples**: commit, create-pr, iterate-pr
 
 ### Content Generation Skills
-- **Expected**: `Read Grep Glob Write` or `Read Grep Glob Bash Write Edit`
+- **Expected**: `Read, Grep, Glob, Write` or `Read, Grep, Glob, Bash, Write, Edit`
 - **Write/Edit justification**: Creating or modifying documentation, configs
 - **Examples**: agents-md, doc-coauthoring
 
 ### External-Facing Skills
-- **Expected**: `Read Grep Glob Bash WebFetch`
+- **Expected**: `Read, Grep, Glob, Bash, WebFetch`
 - **WebFetch justification**: Fetching documentation, API specs
 - **Flag if**: WebFetch is present but no URLs appear in skill instructions
 

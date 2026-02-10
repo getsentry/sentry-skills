@@ -31,7 +31,7 @@ Each skill is a directory containing a `SKILL.md` file with YAML frontmatter (`n
 
 **Optional:**
 - `model` - override model (`sonnet`, `opus`, `haiku`)
-- `allowed-tools` - space-delimited list of permitted tools
+- `allowed-tools` - comma-separated list of permitted tools
 - `license` - license name or path (for attribution, place a LICENSE file in the skill directory)
 - `compatibility` - environment requirements (max 500 chars)
 
@@ -40,7 +40,7 @@ Each skill is a directory containing a `SKILL.md` file with YAML frontmatter (`n
 name: example-skill
 description: What this skill does and when to use it. Include trigger keywords.
 model: sonnet
-allowed-tools: Read Grep Glob Bash
+allowed-tools: Read, Grep, Glob, Bash
 license: LICENSE
 ---
 
