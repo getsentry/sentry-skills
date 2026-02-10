@@ -1,0 +1,16 @@
+version = 1
+
+[defaults]
+failOn = "high"
+reportOn = "medium"
+
+[[skills]]
+name = "skill-scanner"
+paths = ["**/skills/**"]
+
+[[skills.triggers]]
+type = "pull_request"
+actions = ["opened", "synchronize"]
+
+[[skills.triggers]]
+type = "local"
