@@ -4,7 +4,7 @@ description: Scan agent skills for security issues. Use when asked to "scan a sk
   "audit a skill", "review skill security", "check skill for injection", "validate SKILL.md",
   or assess whether an agent skill is safe to install. Checks for prompt injection,
   malicious scripts, excessive permissions, secret exposure, and supply chain risks.
-allowed-tools: Read Grep Glob Bash
+allowed-tools: Read, Grep, Glob, Bash
 ---
 
 # Skill Security Scanner

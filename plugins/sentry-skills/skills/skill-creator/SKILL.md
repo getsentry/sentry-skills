@@ -67,8 +67,7 @@ description: <what it does>. Use when <trigger phrases>. <key capabilities>.
 - `description` — up to 1024 chars; include trigger keywords that help agents match user intent
 
 **Optional fields:**
-- `model` — override model (`sonnet`, `opus`, `haiku`); omit to use the user's default
-- `allowed-tools` — space-delimited list (e.g., `Read Grep Glob Bash Task`); omit to allow all tools
+- `allowed-tools` — comma-separated list (e.g., `Read, Grep, Glob, Bash`); omit to allow all tools
 - `license` — license name or path (add when vendoring external content)
 
 ### Body Guidelines

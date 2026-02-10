@@ -466,7 +466,7 @@ def scan_skill(skill_dir: Path) -> dict[str, Any]:
     if frontmatter and "allowed-tools" in frontmatter:
         tools_str = frontmatter["allowed-tools"]
         if isinstance(tools_str, str):
-            tools_list = tools_str.split()
+            tools_list = [t.strip() for t in tools_str.replace(",", " ").split() if t.strip()]
             tools_info = {
                 "tools": tools_list,
                 "has_bash": "Bash" in tools_list,
